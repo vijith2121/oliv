@@ -34,15 +34,16 @@ class OlivSpider(scrapy.Spider):
         import pandas as pd
         df = pd.read_csv('profiles.csv').to_dict('records')
         for i in df:
+            print(i.get('customer_name'))
             json_data = str(i.get('customer_name'))
             data.replace('nayana', f'{json_data}')
-            yield scrapy.Request(
-                url='https://7434lfw3po-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%20(lite)%203.29.0%3Breact%20(16.14.0)%3Breact-instantsearch%20(5.7.0)%3BJS%20Helper%202.26.1&x-algolia-application-id=7434LFW3PO&x-algolia-api-key=b1e68d317c29aa5783f657cd19f8e64d',
-                method='POST',
-                headers=headers,
-                body=data,
-                callback=self.parse_results
-            )
+            # yield scrapy.Request(
+            #     url='https://7434lfw3po-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%20(lite)%203.29.0%3Breact%20(16.14.0)%3Breact-instantsearch%20(5.7.0)%3BJS%20Helper%202.26.1&x-algolia-application-id=7434LFW3PO&x-algolia-api-key=b1e68d317c29aa5783f657cd19f8e64d',
+            #     method='POST',
+            #     headers=headers,
+            #     body=data,
+            #     callback=self.parse_results
+            # )
             # break
 
     def parse_results(self, response):
