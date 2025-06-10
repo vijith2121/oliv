@@ -29,16 +29,13 @@ class OlivSpider(scrapy.Spider):
             'sec-ch-ua-mobile': '?0',
             'sec-ch-ua-platform': '"Linux"',
         }
-
         data = '{"requests":[{"indexName":"production_CandidatesByLoggedInAtDesc","params":"query=nayana&hitsPerPage=9&maxValuesPerFacet=1000&page=0&highlightPreTag=%3Cais-highlight-0000000000%3E&highlightPostTag=%3C%2Fais-highlight-0000000000%3E&filters=&facets=%5B%22city%22%2C%22visaStatus%22%2C%22majors.name%22%2C%22countryOfResidence%22%2C%22languages%22%2C%22degrees%22%2C%22universities%22%2C%22interestedIn%22%2C%22nationality%22%2C%22gender%22%2C%22ageGroup%22%2C%22hasVideoCv%22%2C%22driversLicence%22%5D&tagFilters="}]}'
-        import chompjs
+        # import chompjs
         import pandas as pd
-
         df = pd.read_csv('profiles.csv').to_dict('records')
         for i in df:
-            json_data = chompjs.parse_js_object(i.get('pipl'))
-            # print(json_data.get('search_term'), i.get('customer_name'))
-            data.replace('nayana', f'{json_data.get('customer_name')}')
+            json_data = str(i.get('customer_name'))
+            data.replace('nayana', f'{json_data}')
             yield scrapy.Request(
                 url='https://7434lfw3po-dsn.algolia.net/1/indexes/*/queries?x-algolia-agent=Algolia%20for%20vanilla%20JavaScript%20(lite)%203.29.0%3Breact%20(16.14.0)%3Breact-instantsearch%20(5.7.0)%3BJS%20Helper%202.26.1&x-algolia-application-id=7434LFW3PO&x-algolia-api-key=b1e68d317c29aa5783f657cd19f8e64d',
                 method='POST',
