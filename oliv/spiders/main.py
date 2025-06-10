@@ -44,7 +44,7 @@ class OlivSpider(scrapy.Spider):
                 body=data,
                 callback=self.parse_results
             )
-            # break
+            break
 
     def parse_results(self, response):
         try:
