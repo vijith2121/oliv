@@ -1,5 +1,5 @@
 import scrapy
 
 class Product(scrapy.Item):
-    title = scrapy.Field()
-    link = scrapy.Field()
+    scrape_date = scrapy.Field()
+    data = scrapy.Field()
